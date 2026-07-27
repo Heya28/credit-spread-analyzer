@@ -1,0 +1,11 @@
+# Security
+config.py
+
+# Virtual Environments
+spread_env/
+
+# Python Cache
+__pycache__/
+
+# Generated Data
+market_data.csv
