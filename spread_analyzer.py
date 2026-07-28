@@ -32,13 +32,36 @@ class ZScoreSignal:
         signal[(rolling_zscore>=-self.threshold) & (rolling_zscore<=self.threshold)]='NEUTRAL'
 
         return pd.DataFrame({
-            'spread':series, 
-             'mean':     rolling_mean,
-            'std':       rolling_std,
-            'z_score':   rolling_zscore,
-            'signal':    signal,
+            'spread':   series, 
+            'mean': rolling_mean,
+            'std':  rolling_std,
+            'Z_score':  rolling_zscore,
+            'signal':   signal,
         })
 
 class SignalReport:
     # Takes signals and summarizes them
-    def __init__(self, )
+    def __init__(self, result):
+        self.result=result
+
+    def latest(self):
+        row=self.result.dropna().iloc[-1]
+        date=self.result.dropna().index[-1].date() # get latest date 
+        print("\nLatest Signal")
+        print(f"Date: {date}")
+        print(f"Spread: {row['spread']}")
+        print(f"Z_score: {row['Z_score']}")
+        print(f"Signal: {row['signal']}")
+        if row['signal']=='CHEAP':
+            print("Spread is unusually wide. Bond is cheaper today compared to recent history.")
+        elif row['signal']=='RICH':
+            print("Spread is unusually tight. Bond is more expensive today compared to recent history.")
+        else:
+            print("Spread is within a normal range. No unusual signal.")
+        
+    def summary(self):
+        last_252_days=self.result.dropna().last('252D')
+        print("\nSignal Distribution for the past 252 days")
+        print(last_252_days['signal'].value_counts())
+
+
