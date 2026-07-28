@@ -17,7 +17,7 @@ def fetch_all():
         frames[name]=fred.get_series(series_id, start='2000-01-01')
     df=pd.DataFrame(frames)
     df['hy_ig_gap']=df['hy_spread']-df['ig_spread']
-    df['2s10s']=df['treasury_10y']-df['treasury_2y']
+    df['2s10s']=df['treasury_10y']-df['treasury_2y'] # if negative --> inverted yield curve implies impending recession 
     df.dropna(inplace=True)
     df.to_csv('market_data.csv')
     return df
