@@ -27,9 +27,9 @@ class ZScoreSignal:
         rolling_zscore=(series-rolling_mean)/rolling_std
 
         signal=pd.Series(index=series.index, dtype=str)
-        signal[rolling_zscore>threshold]='CHEAP' # spread is wide; bond price is cheap
-        signal[rolling_zscore<-threshold]='RICH' # spread is tight ; bond price is rich or expensive
-        signal[rolling_zscore>=-threshold and rolling_zscore<=threshold]='NEUTRAL'
+        signal[rolling_zscore>self.threshold]='CHEAP' # spread is wide; bond price is cheap
+        signal[rolling_zscore<-self.threshold]='RICH' # spread is tight ; bond price is rich or expensive
+        signal[(rolling_zscore>=-self.threshold) & (rolling_zscore<=self.threshold)]='NEUTRAL'
 
         return pd.DataFrame({
             'spread':series, 
@@ -39,3 +39,6 @@ class ZScoreSignal:
             'signal':    signal,
         })
 
+class SignalReport:
+    # Takes signals and summarizes them
+    def __init__(self, )
