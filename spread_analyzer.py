@@ -60,7 +60,7 @@ class SignalReport:
             print("Spread is within a normal range. No unusual signal.")
         
     def summary(self):
-        last_252_days=self.result.dropna().last('252D')
+        last_252_days=self.result.dropna().iloc[-252:]
         print("\nSignal Distribution for the past 252 days")
         print(last_252_days['signal'].value_counts())
 
