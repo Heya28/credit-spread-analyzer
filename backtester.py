@@ -18,12 +18,12 @@ class Backtester:
         for z in df['Z_score']:
             if curr_pos==0:
                 if z>self.entry_z:
-                    position=1 # go long ( buy cheap credit )
+                    curr_pos=1 # go long ( buy cheap credit )
                 elif z<-self.entry_z:
-                    position=-1 # go short ( sell rich credit )
+                    curr_pos=-1 # go short ( sell rich credit )
             elif curr_pos==1:
                 if z<self.exit_z:
-                    position=0 # exit long
+                    curr_pos=0 # exit long
             elif curr_pos==-1:
                 if z>-self.exit_z:
                     curr_pos=0 # exit short 
@@ -34,4 +34,6 @@ class Backtester:
         # PnL - how much profit and loss ( spread points ) we made or lost
         # spread changes appx inverse of return 
         df['spread_change']=df['spread'].diff()
-        df['daily_pnl']=-df['position'].shift(1)*df[spread_change]
+        df['daily_pnl']=-df['position'].shift(1)*df['spread_change']
+        df['cum_pnl']=df['daily_pnl'].cumsum()
+        return df
