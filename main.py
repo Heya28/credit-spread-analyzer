@@ -1,5 +1,8 @@
 from data_fetcher import fetch_all
 from spread_analyzer import SpreadData, ZScoreSignal, SignalReport
+from backtester import Backtester
+from dashboard import build_dashboard
+
 import os
 import time
 
@@ -47,3 +50,7 @@ bt_results_hy_ig=bt_hy_ig.run()
 bt_hy.stats(bt_results_hy)
 bt_ig.stats(bt_results_ig)
 bt_hy_ig.stats(bt_results_hy_ig) # first-pass approximation of a relative-value curve trade
+
+build_dashboard("HY", result_hy, bt_results_hy)
+build_dashboard("IG", result_ig, bt_results_ig)
+build_dashboard("HY-IG Gap", result_hy_ig, bt_results_hy_ig)
