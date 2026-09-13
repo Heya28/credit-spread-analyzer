@@ -2,7 +2,7 @@
 config.py
 
 # Virtual Environments
-spread_env/
+venv/
 
 # Python Cache
 __pycache__/
