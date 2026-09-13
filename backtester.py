@@ -37,3 +37,18 @@ class Backtester:
         df['daily_pnl']=-df['position'].shift(1)*df['spread_change']
         df['cum_pnl']=df['daily_pnl'].cumsum()
         return df
+
+    def stats(self, df:pd.DataFrame):
+        pnl=df['daily_pnl'].dropna()
+        sharpe=pnl.mean()/ pnl.std() *np.sqrt(252) # >1 - good, >2 - excellent, <0.5 - losing money over time
+        total=df['cum_pnl'].iloc[-1] # final total profit or loss
+        dd= (df['cum_pnl']-df['cum_pnl'].cummax()).min()
+        wins=(pnl>0).sum() / (pnl!=0).sum()*100
+        trades = (df['position'].diff() != 0).sum()
+
+        print("\nBacktest Results")
+        print(f"Total PnL (bps): {total:.1f}")
+        print(f"Sharpe Ratio: {sharpe:.2f}")
+        print(f"Max Drawdown (bps): {dd:.1f}")
+        print(f"Win Rate: {wins:.1f}")
+        print(f"Total Trades: {trades}")

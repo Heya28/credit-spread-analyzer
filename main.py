@@ -34,3 +34,16 @@ report_ig.summary()
 print("\nHY-IG Gap (Credit Stress Indicator)") # high gap indicates panic or stress in market leading to relative value opportunities in high yield bonds. 
 report_hy_ig.latest()
 report_hy_ig.summary()
+
+# backtester
+bt_hy=Backtester(result_hy)
+bt_ig=Backtester(result_ig)
+bt_hy_ig=Backtester(result_hy_ig)
+
+bt_results_hy=bt_hy.run()
+bt_results_ig=bt_ig.run()
+bt_results_hy_ig=bt_hy_ig.run()
+
+bt_hy.stats(bt_results_hy)
+bt_ig.stats(bt_results_ig)
+bt_hy_ig.stats(bt_results_hy_ig) # first-pass approximation of a relative-value curve trade
