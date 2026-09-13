@@ -37,7 +37,7 @@ def explain_signal(name: str, spread: float, z: float, signal: str) -> str:
 
 st.set_page_config(page_title="Credit Spread Analyzer", layout="wide")
 st.title("Credit Spread Analyzer")
-st.caption("HY / IG / HY-IG Gap — Z-score signal engine + backtest, refreshed on every visit")
+st.caption("HY / IG / HY-IG Gap — Tracks US corporate bond spreads and flags when they look unusually cheap or expensive vs their own recent history.")
 
 #  Fetch data (cached so it doesn't re-hit the FRED API on every click) 
 @st.cache_data(ttl=86400)  # cache for 24 hours
